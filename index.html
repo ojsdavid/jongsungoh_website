@@ -123,28 +123,28 @@
         body.show-en .lang-inline-en, body.show-de .lang-inline-de, body.show-kr .lang-inline-kr { display: inline; }
     </style>
 </head>
-<body class="show-de">
+<body class="show-en">
 
     <header>
         <h1 onclick="showSection('home')">Jongsung OH</h1>
         <div class="lang-switch">
-            <button class="lang-btn" id="btn-en" onclick="setLang('en', this)">EN</button>
-            <button class="lang-btn active" id="btn-de" onclick="setLang('de', this)">DE</button>
+            <button class="lang-btn active" id="btn-en" onclick="setLang('en', this)">EN</button>
+            <button class="lang-btn" id="btn-de" onclick="setLang('de', this)">DE</button>
             <button class="lang-btn" id="btn-kr" onclick="setLang('kr', this)">KR</button>
         </div>
         <nav id="main-nav">
-            <a onclick="handleNavClick(this, 'home')" id="nav-home" class=""><span class="lang-inline-en">Intro</span><span class="lang-inline-de">Startseite</span><span class="lang-inline-kr">시작</span></a>
+            <a onclick="handleNavClick(this, 'home')" id="nav-home" class="active"><span class="lang-inline-en">Intro</span><span class="lang-inline-de">Startseite</span><span class="lang-inline-kr">시작</span></a>
             <a onclick="handleNavClick(this, 'bio')" id="nav-bio" class=""><span class="lang-inline-en">Bio</span><span class="lang-inline-de">Bio</span><span class="lang-inline-kr">소개</span></a>
             <a onclick="handleNavClick(this, 'works')" id="nav-works" class=""><span class="lang-inline-en">Works</span><span class="lang-inline-de">Werke</span><span class="lang-inline-kr">작품</span></a>
-            <a onclick="handleNavClick(this, 'event')" id="nav-event" class="active"><span class="lang-inline-en">Event</span><span class="lang-inline-de">Termine</span><span class="lang-inline-kr">일정</span></a>
+            <a onclick="handleNavClick(this, 'event')" id="nav-event" class=""><span class="lang-inline-en">Event</span><span class="lang-inline-de">Termine</span><span class="lang-inline-kr">일정</span></a>
             <a onclick="handleNavClick(this, 'contact')" id="nav-contact"><span class="lang-inline-en">Contact</span><span class="lang-inline-de">Kontakt</span><span class="lang-inline-kr">Contact</span></a>
         </nav>
     </header>
 
     <div class="main-container">
-        <section id="home" class="">
-            <div class="home-layout" id="main-home-layout" style="margin-top: 30px;">
-                <div class="home-image" id="main-image-container" style="flex: 1.2 1 0%;"><img src="images/2.jpg" alt="Jongsung OH" id="main-image" style="aspect-ratio: 1 / 1.5;"></div>
+        <section id="home" class="active">
+            <div class="home-layout" id="main-home-layout" style="margin-top: 5px;">
+                <div class="home-image" id="main-image-container" style="flex: 0.5 1 0%;"><img src="images/2.jpg" alt="Jongsung OH" id="main-image" style="aspect-ratio: 1 / 1.5; object-position: center top;"></div>
                 <div class="home-text" id="home-intro-text">
                     <h2 class="lang-en">Between Innovation and Convention</h2>
                     <h2 class="lang-de">Zwischen Innovation und Konvention</h2>
@@ -222,7 +222,7 @@
             </div>
         </section>
 
-        <section id="event" class="active">
+        <section id="event" class="">
             <div class="table-container">
                 <table>
                     <thead>
@@ -656,6 +656,7 @@
             toggleAdminMode(); 
         }
     </script>
+
 
 
 
