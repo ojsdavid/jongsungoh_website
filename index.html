@@ -76,6 +76,23 @@
         td { padding: 18px 10px; border-bottom: 1px solid #eee; vertical-align: top; }
         td a { color: var(--primary-color); font-weight: 600; text-decoration: underline; text-decoration-color: #ccc; }
 
+        .table-container { overflow-x: auto; margin-top: 20px; }
+        table { width: 100%; border-collapse: collapse; font-size: 0.9rem; min-width: 700px; }
+        th { text-align: left; border-bottom: 1px solid var(--primary-color); padding: 15px 10px; font-weight: 600; }
+        td { padding: 18px 10px; border-bottom: 1px solid #eee; vertical-align: top; }
+        td a { color: var(--primary-color); font-weight: 600; text-decoration: underline; text-decoration-color: #ccc; }
+
+        /* 🔽 이 부분에 방금 말씀드린 날짜 고정 코드를 넣습니다! 🔽 */
+        #event-body td:first-child, 
+        #works-body td:first-child {
+            white-space: nowrap;
+            vertical-align: top;
+            padding-right: 20px;
+        }
+        /* 🔼 여기까지 🔼 */
+
+        /* Admin UI */
+        body.admin-mode [contenteditable="true"] { outline: 1px dashed #ccc; background-color: #fff; cursor: text; border-radius: 2px; padding: 2px; }
         /* Admin UI */
         body.admin-mode [contenteditable="true"] { outline: 1px dashed #ccc; background-color: #fff; cursor: text; border-radius: 2px; padding: 2px; }
         
