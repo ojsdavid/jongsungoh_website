@@ -362,10 +362,13 @@
                 <input type="date" id="add-date">
             </div>
             <div class="admin-form-row">
-                <input type="text" id="add-title" placeholder="작품명 (모든 언어 공통)" style="flex:2;">
-                <input type="text" id="add-link" placeholder="Media Link (http://...) 비워두면 '-'">
-            </div>
-
+    <input type="text" id="add-title" placeholder="작품명 (모든 언어 공통)" style="flex:1;">
+</div>
+<div class="admin-form-row">
+    <input type="text" id="add-spotify" placeholder="Spotify URL">
+    <input type="text" id="add-youtube" placeholder="YouTube URL">
+    <input type="text" id="add-soundcloud" placeholder="SoundCloud URL">
+</div>
             <div class="admin-multi-lang">
                 <div>
                     <label>편성 (Instrumentation)</label>
@@ -606,57 +609,68 @@
             return `<span class="lang-inline-en">${obj.en}</span><span class="lang-inline-de">${obj.de}</span><span class="lang-inline-kr">${obj.kr}</span>`;
         }
 
-        function addManualRow() {
-            const type = document.getElementById('add-type').value;
-            const title = document.getElementById('add-title').value;
-            const dates = formatDate(document.getElementById('add-date').value);
-            const link = document.getElementById('add-link').value;
-            
-            const inst = {
-                en: document.getElementById('add-inst-en').value,
-                de: document.getElementById('add-inst-de').value,
-                kr: document.getElementById('add-inst-kr').value
-            };
-            const loc = {
-                en: document.getElementById('add-loc-en').value,
-                de: document.getElementById('add-loc-de').value,
-                kr: document.getElementById('add-loc-kr').value
-            };
-            const perf = {
-                en: document.getElementById('add-perf-en').value,
-                de: document.getElementById('add-perf-de').value,
-                kr: document.getElementById('add-perf-kr').value
-            };
+       function addManualRow() {
+    const type = document.getElementById('add-type').value;
+    const title = document.getElementById('add-title').value;
+    const dates = formatDate(document.getElementById('add-date').value);
+    
+    // 💡 수정된 부분: 3가지 링크를 각각 가져옵니다.
+    const spotify = document.getElementById('add-spotify').value.trim();
+    const youtube = document.getElementById('add-youtube').value.trim();
+    const soundcloud = document.getElementById('add-soundcloud').value.trim();
 
-            const mediaHtml = link ? `<a href="${link}" target="_blank">Audio</a>` : `<span style="color:#ccc;">-</span>`;
+    // 💡 수정된 부분: 링크가 있는 것만 아이콘으로 만듭니다.
+    let mediaHtml = "";
+    if (spotify) mediaHtml += `<a href="${spotify}" target="_blank" style="margin-right:10px; color:#1DB954;"><i class="fa-brands fa-spotify"></i></a>`;
+    if (youtube) mediaHtml += `<a href="${youtube}" target="_blank" style="margin-right:10px; color:#FF0000;"><i class="fa-brands fa-youtube"></i></a>`;
+    if (soundcloud) mediaHtml += `<a href="${soundcloud}" target="_blank" style="color:#ff5500;"><i class="fa-brands fa-soundcloud"></i></a>`;
+    
+    if (!mediaHtml) mediaHtml = `<span style="color:#ccc;">-</span>`;
 
-            let newHtml = "";
-            if(type === 'works') {
-                const combinedDe = `${dates.de} | ${loc.de}<br>${perf.de}`;
-                const combinedKr = `${dates.kr} | ${loc.kr}<br>${perf.kr}`;
-                const combinedEn = `${dates.en} | ${loc.en}<br>${perf.en}`;
-                
-                newHtml = `<tr>
-                    <td><strong>${dates.year || "-"}</strong></td>
-                    <td>${title}</td>
-                    <td>${spanObj(inst)}</td>
-                    <td>${spanObj({en: combinedEn, de: combinedDe, kr: combinedKr})}</td>
-                    <td>${mediaHtml}</td>
-                </tr>`;
-                document.getElementById('works-body').insertAdjacentHTML('afterbegin', newHtml);
-            } else {
-                newHtml = `<tr>
-                    <td>${spanObj(dates)}</td>
-                    <td>${spanObj(loc)}</td>
-                    <td><strong>${title}</strong> ${inst.en ? `<span class="lang-inline-en">for ${inst.en}</span><span class="lang-inline-de">für ${inst.de}</span><span class="lang-inline-kr">${inst.kr}를 위한</span>` : ''}</td>
-                    <td>${spanObj(perf)}</td>
-                </tr>`;
-                document.getElementById('event-body').insertAdjacentHTML('afterbegin', newHtml);
-            }
-            refreshAdminButtons();
-            toggleAdminEditable(true);
-            document.querySelectorAll('.admin-multi-lang input, .admin-form-row input').forEach(inp => inp.value = '');
-        }
+    const inst = {
+        en: document.getElementById('add-inst-en').value,
+        de: document.getElementById('add-inst-de').value,
+        kr: document.getElementById('add-inst-kr').value
+    };
+    const loc = {
+        en: document.getElementById('add-loc-en').value,
+        de: document.getElementById('add-loc-de').value,
+        kr: document.getElementById('add-loc-kr').value
+    };
+    const perf = {
+        en: document.getElementById('add-perf-en').value,
+        de: document.getElementById('add-perf-de').value,
+        kr: document.getElementById('add-perf-kr').value
+    };
+
+    let newHtml = "";
+    if(type === 'works') {
+        const combinedDe = `${dates.de} | ${loc.de}<br>${perf.de}`;
+        const combinedKr = `${dates.kr} | ${loc.kr}<br>${perf.kr}`;
+        const combinedEn = `${dates.en} | ${loc.en}<br>${perf.en}`;
+        
+        newHtml = `<tr>
+            <td><strong>${dates.year || "-"}</strong></td>
+            <td>${title}</td>
+            <td>${spanObj(inst)}</td>
+            <td>${spanObj({en: combinedEn, de: combinedDe, kr: combinedKr})}</td>
+            <td style="font-size: 1.2rem;">${mediaHtml}</td>
+        </tr>`;
+        document.getElementById('works-body').insertAdjacentHTML('afterbegin', newHtml);
+    } else {
+        newHtml = `<tr>
+            <td>${spanObj(dates)}</td>
+            <td>${spanObj(loc)}</td>
+            <td><strong>${title}</strong> ${inst.en ? `<span class="lang-inline-en">for ${inst.en}</span><span class="lang-inline-de">für ${inst.de}</span><span class="lang-inline-kr">${inst.kr}를 위한</span>` : ''}</td>
+            <td>${spanObj(perf)}</td>
+        </tr>`;
+        document.getElementById('event-body').insertAdjacentHTML('afterbegin', newHtml);
+    }
+    refreshAdminButtons();
+    toggleAdminEditable(true);
+    // 입력창 초기화 (새로운 ID들에 맞춰 수정)
+    document.querySelectorAll('.admin-multi-lang input, .admin-form-row input').forEach(inp => inp.value = '');
+}
 
         function exportFullCode() {
             document.querySelectorAll('.admin-ctrl-box').forEach(el => el.remove());
