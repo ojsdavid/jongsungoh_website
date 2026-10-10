@@ -25,7 +25,7 @@
         }
 
         header { 
-            width: 100%; max-width: 1100px; padding: 20px 20px 10px 20px; 
+            width: 100%; max-width: 1100px; padding: 20px 20px 10px 20px; box-sizing: border-box; 
             text-align: center; position: sticky; top: 0; background-color: var(--bg-color); z-index: 100; 
         }
 
@@ -97,14 +97,35 @@
         }
         /* 🔼 여기까지 🔼 */
 
+        /* Works: 제목 아래 Video / Audio 링크 */
+        #works table { min-width: 0; }
+        .media-links { margin-top: 8px; display: flex; flex-direction: column; gap: 3px; }
+        .media-row { display: flex; align-items: center; gap: 10px; line-height: 1.5; }
+        .media-label { display: inline-block; min-width: 52px; font-size: 0.72rem; font-weight: 400; letter-spacing: 1.5px; text-transform: uppercase; color: var(--secondary-color); }
+        .media-row a { color: var(--primary-color); font-size: 1.1rem; font-weight: 400; text-decoration: none; transition: opacity 0.2s; }
+        .media-row a:hover { opacity: 0.55; }
+
+        /* 모바일: Works 표를 작품별 카드(세로 배치)로 */
+        @media (max-width: 768px) {
+            #works .table-container { overflow-x: visible; }
+            #works thead { display: none; }
+            #works table, #works tbody, #works tr, #works td { display: block; width: auto; box-sizing: border-box; }
+            #works tr { padding: 20px 0; border-bottom: 1px solid #eee; }
+            #works td { border: none; padding: 2px 0; }
+            #works-body td:first-child { font-size: 0.8rem; color: var(--secondary-color); padding: 0 0 2px 0; }
+            #works-body td:nth-child(2) { font-size: 1.05rem; font-weight: 600; line-height: 1.5; }
+            #works-body td:nth-child(3) { color: var(--secondary-color); }
+            #works-body td:nth-child(4) { font-size: 0.85rem; margin-top: 4px; }
+            #works-body td:nth-child(4) { word-break: keep-all; }
+        }
+
         /* Admin UI */
         body.admin-mode [contenteditable="true"] { outline: 1px dashed #ccc; background-color: #fff; cursor: text; border-radius: 2px; padding: 2px; }
         /* Admin UI */
         body.admin-mode [contenteditable="true"] { outline: 1px dashed #ccc; background-color: #fff; cursor: text; border-radius: 2px; padding: 2px; }
         
         /* 💡 Admin 모드에서 Works 미디어 셀 클릭 유도 UI */
-        body.admin-mode #works-body td:nth-child(5) { cursor: pointer; transition: background 0.2s; }
-        body.admin-mode #works-body td:nth-child(5):hover { background-color: #f0f0f0; outline: 1px dashed #ccc; }
+        body.admin-mode .media-row a { cursor: pointer; outline: 1px dashed #ccc; padding: 0 3px; }
         
         .admin-ctrl-box { display: none; gap: 5px; margin-top: 5px; }
         body.admin-mode .admin-ctrl-box { display: flex; }
@@ -290,29 +311,28 @@
                             <th><span class="lang-inline-en">Title</span><span class="lang-inline-de">Titel</span><span class="lang-inline-kr">제목</span></th>
                             <th><span class="lang-inline-en">Instrumentation</span><span class="lang-inline-de">Besetzung</span><span class="lang-inline-kr">편성</span></th>
                             <th><span class="lang-inline-en">Premiere &amp; Performers</span><span class="lang-inline-de">Uraufführung &amp; Interpret</span><span class="lang-inline-kr">초연 및 연주자</span></th>
-                            <th>Media</th>
                         </tr>
                     </thead>
                     <tbody id="works-body">
-						<tr><td><strong>2026</strong></td><td>Das Fest des Wahnsinnes</td><td><span class="lang-inline-en">Soprano &amp; 3D Audio</span><span class="lang-inline-de">Sopran &amp; 3D Audio</span><span class="lang-inline-kr">소프라노와 3D 오디오</span></td><td><span class="lang-inline-en">Sep. 29th, 2026 | Cologne, Germany<br>Manon Blanc-Delsalle</span><span class="lang-inline-de">29. Sep. 2026 | Köln, Deutschland<br>Manon Blanc-Delsalle</span><span class="lang-inline-kr">2026년 9월 29일 | 독일 쾰른<br>마농 블랑-델살</span></td><td><span style="color:#ccc;">-</span></td></tr>
-						<tr><td><strong>2026</strong></td><td>Marsch der Verstrahlten</td><td><span class="lang-inline-en">Doublebass Solo, 6 Db. Players &amp; Live-Electronics</span><span class="lang-inline-de">Kontrabass Solo, 6 Kb. Spieler &amp; Live-Elektronik</span><span class="lang-inline-kr">콘트라베이스 솔로, 6인의 콘트라베이스 연주자와 라이브-전자음악</span></td><td><span class="lang-inline-en">May 4th, 2026 | Cologne, Germany<br>Solo Carlota Ramos, cond. Thomas Moore, Kontrabass Ensemble HfMT Köln</span><span class="lang-inline-de">4. Mai 2026 | Köln, Deutschland<br>Solo Carlota Ramos, cond. Thomas Moore, Kontrabass Ensemble HfMT Köln</span><span class="lang-inline-kr">2026년 5월 4일 | 독일 쾰른<br>솔로 칼로타 라모스, 지휘 토마스 무어, 콘트라베이스 앙상블 HfMT Köln</span></td><td><span style="color:#ccc;">-</span></td></tr>
-                        <tr><td><strong>2025</strong></td><td>Verstreuung und Anschwellung</td><td><span class="lang-inline-en">8 Players &amp; Electronics</span><span class="lang-inline-de">8 Spieler &amp; Elektronik</span><span class="lang-inline-kr">8인의 연주자와 전자음악</span></td><td><span class="lang-inline-en">Dec. 19th, 2025 | Cologne, Germany<br>Ensemble Musikfabrik, cond. Stephen Mulligan</span><span class="lang-inline-de">19. Dez. 2025 | Köln, Deutschland<br>Ensemble Musikfabrik, Dir. Stephen Mulligan</span><span class="lang-inline-kr">2025년 12월 19일 | 독일 쾰른<br>앙상블 무지크파브릭, 지휘 스티브 멀리건</span></td><td style="white-space: nowrap;"><a href="https://youtu.be/oCBoqnGSdn4?si=emXlguX_ujHvKuiV" target="_blank" rel="noopener" title="YouTube"><i class="fa-brands fa-youtube"></i></a></td></tr>
-                        <tr><td><strong>2025</strong></td><td>Morphogenesis</td><td><span class="lang-inline-en">Ensemble</span><span class="lang-inline-de">Ensemble</span><span class="lang-inline-kr">앙상블</span></td><td><span class="lang-inline-en">Sep. 7th, 2025 | Edenkoben, Germany<br>IEMA-Ensemble, cond. Yannick Mayaud</span><span class="lang-inline-de">7. Sep. 2025 | Edenkoben, Deutschland<br>IEMA-Ensemble, Dir. Yannick Mayaud</span><span class="lang-inline-kr">2025년 9월 7일 | 독일 에덴코벤<br>IEMA 앙상블, 지휘 야닉 마요</span></td><td><span style="color:#ccc;">-</span></td></tr>
-                        <tr><td><strong>2025</strong></td><td>Fluid Gradient</td><td><span class="lang-inline-en">Organ &amp; Electronics</span><span class="lang-inline-de">Orgel &amp; Elektronik</span><span class="lang-inline-kr">오르간과 전자음악</span></td><td><span class="lang-inline-en">Oct. 29th, 2025 | Cologne, Germany<br>Francesco Leporatti</span><span class="lang-inline-de">29. Okt. 2025 | Köln, Deutschland<br>Francesco Leporatti</span><span class="lang-inline-kr">2025년 10월 29일 | 독일 쾰른<br>프란체스코 레포라티</span></td><td><span style="color:#ccc;">-</span></td></tr>
-                        <tr><td><strong>2025</strong></td><td>Gradus ex Parnasso</td><td><span class="lang-inline-en">Violin Solo &amp; Electronics</span><span class="lang-inline-de">Violin Solo &amp; Elektronik</span><span class="lang-inline-kr">바이올린솔로와 전자음악</span></td><td><span class="lang-inline-en">Jul. 4th, 2025 | Cologne, Germany<br>Aline Müller</span><span class="lang-inline-de">4. Jul. 2025 | Köln, Deutschland<br>Aline Müller</span><span class="lang-inline-kr">2025년 7월 4일 | 독일 쾰른<br>알리네 뮐러</span></td><td style="white-space: nowrap;"><a href="https://youtu.be/F1eCxatS7iU" target="_blank" rel="noopener" title="YouTube"><i class="fa-brands fa-youtube"></i></a></td></tr>
-                        <tr><td><strong>2025</strong></td><td>...et le printemps</td><td><span class="lang-inline-en">Sheng &amp; Contrabass Flute</span><span class="lang-inline-de">Sheng &amp; Kontrabassflöte</span><span class="lang-inline-kr">생황과 콘트라베이스 플루트</span></td><td><span class="lang-inline-en">May 16th, 2025 | Saarlouis, Germany<br>Wu-Wei, Tilmann Dehnhard</span><span class="lang-inline-de">16. Mai 2025 | Saarlouis, Deutschland<br>Wu-Wei, Tilmann Dehnhard</span><span class="lang-inline-kr">2025년 5월 16일 | 독일 자를루이<br>우웨이, 틸만 덴하르트</span></td><td><span style="color:#ccc;">-</span></td></tr>
-                        <tr><td><strong>2021<br>/rev.2024</strong></td><td>A Horny Faun's Rampage</td><td><span class="lang-inline-en">Chamber Orchestra</span><span class="lang-inline-de">Kammerorchester</span><span class="lang-inline-kr">챔버 오케스트라</span></td><td><span class="lang-inline-en">Apr. 10th, 2021 | Kraków, Poland<br>Orkiestra Muzyki Nowej, cond. Szymon Bywalec<br><i>*Rev. rec. 2024, Ensemble Ars Nova, cond. Gregory Vajda</i></span><span class="lang-inline-de">10. Apr. 2021 | Krakau, Polen<br>Orkiestra Muzyki Nowej, Dir. Szymon Bywalec<br><i>*Rev. Aufn. 2024, Ensemble Ars Nova, Dir. Gregory Vajda</i></span><span class="lang-inline-kr">2021년 4월 10일 | 폴란드 크라쿠프<br>오르키에스트라 무지키 노베이, 지휘 시몬 비발레츠<br><i>*2024년 앙상블 아르스 노바 (지휘 그레고리 바이다) 개정 녹음</i></span></td><td style="white-space: nowrap;"><a href="https://open.spotify.com/track/5XvgTbkK3g8d0BmVNpR7hO" target="_blank" rel="noopener" title="Spotify - Audio(Rev. 2024)"><i class="fa-brands fa-spotify"></i></a> <a href="https://youtu.be/bBM3xDZyF-E?si=A2XOr_eS4temi3ls" target="_blank" rel="noopener" title="YouTube - Audio(Rev. 2024)"><i class="fa-brands fa-youtube"></i></a> <a href="https://youtu.be/IGvINTpU-x8?si=KgoL66URBOBYlPCg" target="_blank" rel="noopener" title="Live Performance (ver. 2021)"><i class="fa-brands fa-youtube"></i></a></td></tr>
-                        <tr><td><strong>2024</strong></td><td>Viola Concerto</td><td><span class="lang-inline-en">Viola Solo &amp; Orchestra</span><span class="lang-inline-de">Viola Solo &amp; Orchester</span><span class="lang-inline-kr">비올라 독주와 오케스트라</span></td><td><span class="lang-inline-en">Oct. 1st, 2024 | Szombathely, Hungary<br>Péter Bársony (vla.solo), Savaria Symphonieorch., cond. Nicolò Umberto Foron</span><span class="lang-inline-de">1. Okt. 2024 | Szombathely, Ungarn<br>Péter Bársony (vla. solo), Savaria Symphonieorch., Dir. Nicolò Umberto Foron</span><span class="lang-inline-kr">2024년 10월 1일 | 헝가리 좀버트헤이<br>페테르 바르소니(비올라 솔로), 사바리아 심포니 오케스트라, 지휘 니콜로 움베르토 포론</span></td><td><span style="color:#ccc;">-</span></td></tr>
-                        <tr><td><strong>2024</strong></td><td>Ricercar</td><td><span class="lang-inline-en">Flute &amp; Electronics</span><span class="lang-inline-de">Flöte &amp; Elektronik</span><span class="lang-inline-kr">플루트와 전자음악</span></td><td><span class="lang-inline-en">Nov. 22nd, 2024 | Saalfeld, Germany<br>Marianna Schürmann(Fl.), Laurenz Karsten(Elec. Cont.)</span><span class="lang-inline-de">22. Nov. 2024 | Saalfeld, Deutschland<br>Marianna Schürmann(Fl.), Laurenz Karsten(Elek. Kont.)</span><span class="lang-inline-kr">2024년 11월 22일 | 독일 잘펠트<br>마리안나 슈어만(플릇), 라우렌츠 카스텐(전자음악)</span></td><td><span style="color:#ccc;">-</span></td></tr>
-                        <tr><td><strong>2023</strong></td><td>The feeling of Finally becoming the Protagonist as a Tuba</td><td><span class="lang-inline-en">Tuba Solo</span><span class="lang-inline-de">Tuba Solo</span><span class="lang-inline-kr">튜바 독주</span></td><td><span class="lang-inline-en">Recorded Jun. 2024 | Paris, France<br>Emilien Courait</span><span class="lang-inline-de">Aufgenommen Jun. 2024 | Paris, Frankreich<br>Emilien Courait</span><span class="lang-inline-kr">2024년 6월 녹음 | 프랑스 파리<br>에밀리앙 쿠레</span></td><td style="white-space: nowrap;"><a href="https://youtu.be/JFPvZ5ygJRM?si=mdoQLYbgEN4QcADk" target="_blank" rel="noopener" title="YouTube"><i class="fa-brands fa-youtube"></a></td></tr>
-                        <tr><td><strong>2023</strong></td><td>Palimpsest</td><td><span class="lang-inline-en">Orchestra</span><span class="lang-inline-de">Orchester</span><span class="lang-inline-kr">오케스트라</span></td><td><span class="lang-inline-en">May 26th, 2023 | Gotha, Germany<br>Thüringen Philharmonie, cond. Markus Huber</span><span class="lang-inline-de">26. Mai 2023 | Gotha, Deutschland<br>Thüringen Philharmonie, Dir. Markus Huber</span><span class="lang-inline-kr">2023년 5월 26일 | 독일 고타<br>튀링엔 필하모니, 지휘 마르쿠스 후버</span></td><td><span style="color:#ccc;">-</span></td></tr>
-                        <tr><td><strong>2023</strong></td><td>Possession Incantation</td><td><span class="lang-inline-en">Flute &amp; Cello</span><span class="lang-inline-de">Flöte &amp; Violoncello</span><span class="lang-inline-kr">플루트와 첼로</span></td><td><span class="lang-inline-en">Oct. 17th, 2023 | Jinju, South Korea<br>Marianna Schürmann, Daniel Gutiérrez</span><span class="lang-inline-de">17. Okt. 2023 | Jinju, Südkorea<br>Marianna Schürmann, Daniel Gutiérrez</span><span class="lang-inline-kr">2023년 10월 17일 | 한국 진주<br>마리안나 슈어만, 다니엘 구티에레스</span></td><td style="white-space: nowrap;"><a href="https://youtu.be/2dYmECrz3YM?si=XCV_xAY4Ky3Fvn0f" target="_blank" rel="noopener" title="YouTube"><i class="fa-brands fa-youtube"></i></a></td></tr>
-                        <tr><td><strong>2022</strong></td><td>Mori Nori</td><td><span class="lang-inline-en">Chamber Orchestra &amp; Taepyeongso</span><span class="lang-inline-de">Kammerorchester &amp; Taepyeongso</span><span class="lang-inline-kr">챔버 오케스트라와 태평소</span></td><td><span class="lang-inline-en">Sep. 3rd, 2022 | Tongyeong, South Korea<br>TIMF Ensemble, cond. Yeojin Kim</span><span class="lang-inline-de">3. Sep. 2022 | Tongyeong, Südkorea<br>TIMF Ensemble, Dir. Yeojin Kim</span><span class="lang-inline-kr">2022년 9월 3일 | 한국 통영<br>TIMF 앙상블, 지휘 김여진</span></td><td><span style="color:#ccc;">-</span></td></tr>
-                        <tr><td><strong>2022</strong></td><td>Concertino</td><td><span class="lang-inline-en">Ensemble</span><span class="lang-inline-de">Ensemble</span><span class="lang-inline-kr">앙상블</span></td><td><span class="lang-inline-en">Oct. 8th, 2022 | Budapest, Hungary<br>Danubia Ensemble, cond. Dir. Chloé Meyzie / Silvina Peruglia</span><span class="lang-inline-de">8. Okt. 2022 | Budapest, Ungarn<br>Danubia Ensemble, Dir. Chloé Meyzie / Silvina Peruglia</span><span class="lang-inline-kr">2022년 10월 8일 | 헝가리 부다페스트<br>다누비아 앙상블, 지휘 클로에 메이지 / 실비나 페룰리아</span></td><td><span style="color:#ccc;">-</span></td></tr>
-						<tr><td><strong>2022</strong></td><td>Jeux de lumière</td><td><span class="lang-inline-en">Accordion Solo</span><span class="lang-inline-de">Akkordeon Solo</span><span class="lang-inline-kr">아코디언 솔로</span></td><td><span class="lang-inline-en">Aug. 5th, 2022 | Cologne, Germany<br>Marius Staible</span><span class="lang-inline-de">5. Aug. 2022 | Köln, Deutschland<br>Marius Staible</span><span class="lang-inline-kr">2022년 8월 5일 | 독일 쾰른<br>마리우스 슈타이블</span></td><td style="white-space: nowrap;"><a href="https://youtu.be/0ZgGnDfXsCQ?si=4M_YiHMHaGEoP3Q8" target="_blank" rel="noopener" title="YouTube"><i class="fa-brands fa-youtube"></i></a></td></tr>
-                        <tr><td><strong>2021</strong></td><td>Rondo</td><td><span class="lang-inline-en">8 Players</span><span class="lang-inline-de">8 Spieler</span><span class="lang-inline-kr">8인의 연주자</span></td><td><span class="lang-inline-en">2021 | Magdeburg, Germany<br>oNSET Project Ensemble, cond. Roc Fargas Castells</span><span class="lang-inline-de">2021 | Magdeburg, Deutschland<br>oNSET Project Ensemble, Dir. Roc Fargas Castells</span><span class="lang-inline-kr">2021년 | 독일 마그데부르크<br>oNSET 프로젝트 앙상블, 지휘 록 파르가스 카스텔스</span></td><td style="white-space: nowrap;"><a href="https://youtu.be/38_s5lsdQ8U?si=TWqOdXQedYjywqfo" target="_blank" rel="noopener" title="YouTube"><i class="fa-brands fa-youtube"></i></a></td></tr>
-                        <tr><td><strong>2021</strong></td><td>Rota Vitae</td><td><span class="lang-inline-en">Sheng Solo</span><span class="lang-inline-de">Sheng Solo</span><span class="lang-inline-kr">생황 독주</span></td><td><span class="lang-inline-en">2021 | Weimar, Germany<br>Wu Wei</span><span class="lang-inline-de">2021 | Weimar, Deutschland<br>Wu Wei</span><span class="lang-inline-kr">2021년 | 독일 바이마르<br>우웨이</span></td><td style="white-space: nowrap;"><a href="https://youtu.be/C_UUg2x4_rU?si=qk71qBnRiXNuCKpj" target="_blank" rel="noopener" title="YouTube"><i class="fa-brands fa-youtube"></i></a></td></tr>
-                        <tr><td><strong>2018</strong></td><td>Haydn</td><td><span class="lang-inline-en">String Quartet</span><span class="lang-inline-de">Streichquartett</span><span class="lang-inline-kr">현악 사중주</span></td><td><span class="lang-inline-en">Feb. 2nd, 2019 | Montréal, Canada<br>Molinari Quartet</span><span class="lang-inline-de">2. Feb. 2019 | Montréal, Kanada<br>Molinari Quartett</span><span class="lang-inline-kr">2019년 2월 2일 | 캐나다 몬트리올<br>몰리나리 콰르텟</span></td><td style="white-space: nowrap;"><a href="https://youtu.be/brk32KjkOy4?si=sMGnhEf1EQ64ALKM" target="_blank" rel="noopener" title="YouTube"><i class="fa-brands fa-youtube"></i></a></td></tr>
+						<tr><td><strong>2026</strong></td><td>Das Fest des Wahnsinnes</td><td><span class="lang-inline-en">Soprano &amp; 3D Audio</span><span class="lang-inline-de">Sopran &amp; 3D Audio</span><span class="lang-inline-kr">소프라노와 3D 오디오</span></td><td><span class="lang-inline-en">Sep. 29th, 2026 | Cologne, Germany<br>Manon Blanc-Delsalle</span><span class="lang-inline-de">29. Sep. 2026 | Köln, Deutschland<br>Manon Blanc-Delsalle</span><span class="lang-inline-kr">2026년 9월 29일 | 독일 쾰른<br>마농 블랑-델살</span></td></tr>
+						<tr><td><strong>2026</strong></td><td>Marsch der Verstrahlten</td><td><span class="lang-inline-en">Doublebass Solo, 6 Db. Players &amp; Live-Electronics</span><span class="lang-inline-de">Kontrabass Solo, 6 Kb. Spieler &amp; Live-Elektronik</span><span class="lang-inline-kr">콘트라베이스 솔로, 6인의 콘트라베이스 연주자와 라이브-전자음악</span></td><td><span class="lang-inline-en">May 4th, 2026 | Cologne, Germany<br>Solo Carlota Ramos, cond. Thomas Moore, Kontrabass Ensemble HfMT Köln</span><span class="lang-inline-de">4. Mai 2026 | Köln, Deutschland<br>Solo Carlota Ramos, cond. Thomas Moore, Kontrabass Ensemble HfMT Köln</span><span class="lang-inline-kr">2026년 5월 4일 | 독일 쾰른<br>솔로 칼로타 라모스, 지휘 토마스 무어, 콘트라베이스 앙상블 HfMT Köln</span></td></tr>
+                        <tr><td><strong>2025</strong></td><td>Verstreuung und Anschwellung<div class="media-links"><div class="media-row" data-kind="video"><span class="media-label"><span class="lang-inline-en">Video</span><span class="lang-inline-de">Video</span><span class="lang-inline-kr">영상</span></span><a href="https://youtu.be/oCBoqnGSdn4?si=emXlguX_ujHvKuiV" target="_blank" rel="noopener" title="YouTube"><i class="fa-brands fa-youtube"></i></a></div></div></td><td><span class="lang-inline-en">8 Players &amp; Electronics</span><span class="lang-inline-de">8 Spieler &amp; Elektronik</span><span class="lang-inline-kr">8인의 연주자와 전자음악</span></td><td><span class="lang-inline-en">Dec. 19th, 2025 | Cologne, Germany<br>Ensemble Musikfabrik, cond. Stephen Mulligan</span><span class="lang-inline-de">19. Dez. 2025 | Köln, Deutschland<br>Ensemble Musikfabrik, Dir. Stephen Mulligan</span><span class="lang-inline-kr">2025년 12월 19일 | 독일 쾰른<br>앙상블 무지크파브릭, 지휘 스티브 멀리건</span></td></tr>
+                        <tr><td><strong>2025</strong></td><td>Morphogenesis</td><td><span class="lang-inline-en">Ensemble</span><span class="lang-inline-de">Ensemble</span><span class="lang-inline-kr">앙상블</span></td><td><span class="lang-inline-en">Sep. 7th, 2025 | Edenkoben, Germany<br>IEMA-Ensemble, cond. Yannick Mayaud</span><span class="lang-inline-de">7. Sep. 2025 | Edenkoben, Deutschland<br>IEMA-Ensemble, Dir. Yannick Mayaud</span><span class="lang-inline-kr">2025년 9월 7일 | 독일 에덴코벤<br>IEMA 앙상블, 지휘 야닉 마요</span></td></tr>
+                        <tr><td><strong>2025</strong></td><td>Fluid Gradient</td><td><span class="lang-inline-en">Organ &amp; Electronics</span><span class="lang-inline-de">Orgel &amp; Elektronik</span><span class="lang-inline-kr">오르간과 전자음악</span></td><td><span class="lang-inline-en">Oct. 29th, 2025 | Cologne, Germany<br>Francesco Leporatti</span><span class="lang-inline-de">29. Okt. 2025 | Köln, Deutschland<br>Francesco Leporatti</span><span class="lang-inline-kr">2025년 10월 29일 | 독일 쾰른<br>프란체스코 레포라티</span></td></tr>
+                        <tr><td><strong>2025</strong></td><td>Gradus ex Parnasso<div class="media-links"><div class="media-row" data-kind="video"><span class="media-label"><span class="lang-inline-en">Video</span><span class="lang-inline-de">Video</span><span class="lang-inline-kr">영상</span></span><a href="https://youtu.be/F1eCxatS7iU" target="_blank" rel="noopener" title="YouTube"><i class="fa-brands fa-youtube"></i></a></div></div></td><td><span class="lang-inline-en">Violin Solo &amp; Electronics</span><span class="lang-inline-de">Violin Solo &amp; Elektronik</span><span class="lang-inline-kr">바이올린솔로와 전자음악</span></td><td><span class="lang-inline-en">Jul. 4th, 2025 | Cologne, Germany<br>Aline Müller</span><span class="lang-inline-de">4. Jul. 2025 | Köln, Deutschland<br>Aline Müller</span><span class="lang-inline-kr">2025년 7월 4일 | 독일 쾰른<br>알리네 뮐러</span></td></tr>
+                        <tr><td><strong>2025</strong></td><td>...et le printemps</td><td><span class="lang-inline-en">Sheng &amp; Contrabass Flute</span><span class="lang-inline-de">Sheng &amp; Kontrabassflöte</span><span class="lang-inline-kr">생황과 콘트라베이스 플루트</span></td><td><span class="lang-inline-en">May 16th, 2025 | Saarlouis, Germany<br>Wu-Wei, Tilmann Dehnhard</span><span class="lang-inline-de">16. Mai 2025 | Saarlouis, Deutschland<br>Wu-Wei, Tilmann Dehnhard</span><span class="lang-inline-kr">2025년 5월 16일 | 독일 자를루이<br>우웨이, 틸만 덴하르트</span></td></tr>
+                        <tr><td><strong>2021<br>/rev.2024</strong></td><td>A Horny Faun's Rampage<div class="media-links"><div class="media-row" data-kind="video"><span class="media-label"><span class="lang-inline-en">Video</span><span class="lang-inline-de">Video</span><span class="lang-inline-kr">영상</span></span><a href="https://youtu.be/IGvINTpU-x8?si=KgoL66URBOBYlPCg" target="_blank" rel="noopener" title="YouTube - Live Performance (ver. 2021)"><i class="fa-brands fa-youtube"></i></a></div><div class="media-row" data-kind="audio"><span class="media-label"><span class="lang-inline-en">Audio</span><span class="lang-inline-de">Audio</span><span class="lang-inline-kr">오디오</span></span><a href="https://open.spotify.com/track/5XvgTbkK3g8d0BmVNpR7hO" target="_blank" rel="noopener" title="Spotify - Rev. 2024"><i class="fa-brands fa-spotify"></i></a><a href="https://youtu.be/bBM3xDZyF-E?si=A2XOr_eS4temi3ls" target="_blank" rel="noopener" title="YouTube - Rev. 2024"><i class="fa-brands fa-youtube"></i></a></div></div></td><td><span class="lang-inline-en">Chamber Orchestra</span><span class="lang-inline-de">Kammerorchester</span><span class="lang-inline-kr">챔버 오케스트라</span></td><td><span class="lang-inline-en">Apr. 10th, 2021 | Kraków, Poland<br>Orkiestra Muzyki Nowej, cond. Szymon Bywalec<br><i>*Rev. rec. 2024, Ensemble Ars Nova, cond. Gregory Vajda</i></span><span class="lang-inline-de">10. Apr. 2021 | Krakau, Polen<br>Orkiestra Muzyki Nowej, Dir. Szymon Bywalec<br><i>*Rev. Aufn. 2024, Ensemble Ars Nova, Dir. Gregory Vajda</i></span><span class="lang-inline-kr">2021년 4월 10일 | 폴란드 크라쿠프<br>오르키에스트라 무지키 노베이, 지휘 시몬 비발레츠<br><i>*2024년 앙상블 아르스 노바 (지휘 그레고리 바이다) 개정 녹음</i></span></td></tr>
+                        <tr><td><strong>2024</strong></td><td>Viola Concerto</td><td><span class="lang-inline-en">Viola Solo &amp; Orchestra</span><span class="lang-inline-de">Viola Solo &amp; Orchester</span><span class="lang-inline-kr">비올라 독주와 오케스트라</span></td><td><span class="lang-inline-en">Oct. 1st, 2024 | Szombathely, Hungary<br>Péter Bársony (vla.solo), Savaria Symphonieorch., cond. Nicolò Umberto Foron</span><span class="lang-inline-de">1. Okt. 2024 | Szombathely, Ungarn<br>Péter Bársony (vla. solo), Savaria Symphonieorch., Dir. Nicolò Umberto Foron</span><span class="lang-inline-kr">2024년 10월 1일 | 헝가리 좀버트헤이<br>페테르 바르소니(비올라 솔로), 사바리아 심포니 오케스트라, 지휘 니콜로 움베르토 포론</span></td></tr>
+                        <tr><td><strong>2024</strong></td><td>Ricercar</td><td><span class="lang-inline-en">Flute &amp; Electronics</span><span class="lang-inline-de">Flöte &amp; Elektronik</span><span class="lang-inline-kr">플루트와 전자음악</span></td><td><span class="lang-inline-en">Nov. 22nd, 2024 | Saalfeld, Germany<br>Marianna Schürmann(Fl.), Laurenz Karsten(Elec. Cont.)</span><span class="lang-inline-de">22. Nov. 2024 | Saalfeld, Deutschland<br>Marianna Schürmann(Fl.), Laurenz Karsten(Elek. Kont.)</span><span class="lang-inline-kr">2024년 11월 22일 | 독일 잘펠트<br>마리안나 슈어만(플릇), 라우렌츠 카스텐(전자음악)</span></td></tr>
+                        <tr><td><strong>2023</strong></td><td>The feeling of Finally becoming the Protagonist as a Tuba<div class="media-links"><div class="media-row" data-kind="video"><span class="media-label"><span class="lang-inline-en">Video</span><span class="lang-inline-de">Video</span><span class="lang-inline-kr">영상</span></span><a href="https://youtu.be/JFPvZ5ygJRM?si=mdoQLYbgEN4QcADk" target="_blank" rel="noopener" title="YouTube"><i class="fa-brands fa-youtube"></i></a></div></div></td><td><span class="lang-inline-en">Tuba Solo</span><span class="lang-inline-de">Tuba Solo</span><span class="lang-inline-kr">튜바 독주</span></td><td><span class="lang-inline-en">Recorded Jun. 2024 | Paris, France<br>Emilien Courait</span><span class="lang-inline-de">Aufgenommen Jun. 2024 | Paris, Frankreich<br>Emilien Courait</span><span class="lang-inline-kr">2024년 6월 녹음 | 프랑스 파리<br>에밀리앙 쿠레</span></td></tr>
+                        <tr><td><strong>2023</strong></td><td>Palimpsest</td><td><span class="lang-inline-en">Orchestra</span><span class="lang-inline-de">Orchester</span><span class="lang-inline-kr">오케스트라</span></td><td><span class="lang-inline-en">May 26th, 2023 | Gotha, Germany<br>Thüringen Philharmonie, cond. Markus Huber</span><span class="lang-inline-de">26. Mai 2023 | Gotha, Deutschland<br>Thüringen Philharmonie, Dir. Markus Huber</span><span class="lang-inline-kr">2023년 5월 26일 | 독일 고타<br>튀링엔 필하모니, 지휘 마르쿠스 후버</span></td></tr>
+                        <tr><td><strong>2023</strong></td><td>Possession Incantation<div class="media-links"><div class="media-row" data-kind="video"><span class="media-label"><span class="lang-inline-en">Video</span><span class="lang-inline-de">Video</span><span class="lang-inline-kr">영상</span></span><a href="https://youtu.be/2dYmECrz3YM?si=XCV_xAY4Ky3Fvn0f" target="_blank" rel="noopener" title="YouTube"><i class="fa-brands fa-youtube"></i></a></div></div></td><td><span class="lang-inline-en">Flute &amp; Cello</span><span class="lang-inline-de">Flöte &amp; Violoncello</span><span class="lang-inline-kr">플루트와 첼로</span></td><td><span class="lang-inline-en">Oct. 17th, 2023 | Jinju, South Korea<br>Marianna Schürmann, Daniel Gutiérrez</span><span class="lang-inline-de">17. Okt. 2023 | Jinju, Südkorea<br>Marianna Schürmann, Daniel Gutiérrez</span><span class="lang-inline-kr">2023년 10월 17일 | 한국 진주<br>마리안나 슈어만, 다니엘 구티에레스</span></td></tr>
+                        <tr><td><strong>2022</strong></td><td>Mori Nori</td><td><span class="lang-inline-en">Chamber Orchestra &amp; Taepyeongso</span><span class="lang-inline-de">Kammerorchester &amp; Taepyeongso</span><span class="lang-inline-kr">챔버 오케스트라와 태평소</span></td><td><span class="lang-inline-en">Sep. 3rd, 2022 | Tongyeong, South Korea<br>TIMF Ensemble, cond. Yeojin Kim</span><span class="lang-inline-de">3. Sep. 2022 | Tongyeong, Südkorea<br>TIMF Ensemble, Dir. Yeojin Kim</span><span class="lang-inline-kr">2022년 9월 3일 | 한국 통영<br>TIMF 앙상블, 지휘 김여진</span></td></tr>
+                        <tr><td><strong>2022</strong></td><td>Concertino</td><td><span class="lang-inline-en">Ensemble</span><span class="lang-inline-de">Ensemble</span><span class="lang-inline-kr">앙상블</span></td><td><span class="lang-inline-en">Oct. 8th, 2022 | Budapest, Hungary<br>Danubia Ensemble, cond. Dir. Chloé Meyzie / Silvina Peruglia</span><span class="lang-inline-de">8. Okt. 2022 | Budapest, Ungarn<br>Danubia Ensemble, Dir. Chloé Meyzie / Silvina Peruglia</span><span class="lang-inline-kr">2022년 10월 8일 | 헝가리 부다페스트<br>다누비아 앙상블, 지휘 클로에 메이지 / 실비나 페룰리아</span></td></tr>
+						<tr><td><strong>2022</strong></td><td>Jeux de lumière<div class="media-links"><div class="media-row" data-kind="video"><span class="media-label"><span class="lang-inline-en">Video</span><span class="lang-inline-de">Video</span><span class="lang-inline-kr">영상</span></span><a href="https://youtu.be/0ZgGnDfXsCQ?si=4M_YiHMHaGEoP3Q8" target="_blank" rel="noopener" title="YouTube"><i class="fa-brands fa-youtube"></i></a></div></div></td><td><span class="lang-inline-en">Accordion Solo</span><span class="lang-inline-de">Akkordeon Solo</span><span class="lang-inline-kr">아코디언 솔로</span></td><td><span class="lang-inline-en">Aug. 5th, 2022 | Cologne, Germany<br>Marius Staible</span><span class="lang-inline-de">5. Aug. 2022 | Köln, Deutschland<br>Marius Staible</span><span class="lang-inline-kr">2022년 8월 5일 | 독일 쾰른<br>마리우스 슈타이블</span></td></tr>
+                        <tr><td><strong>2021</strong></td><td>Rondo<div class="media-links"><div class="media-row" data-kind="video"><span class="media-label"><span class="lang-inline-en">Video</span><span class="lang-inline-de">Video</span><span class="lang-inline-kr">영상</span></span><a href="https://youtu.be/38_s5lsdQ8U?si=TWqOdXQedYjywqfo" target="_blank" rel="noopener" title="YouTube"><i class="fa-brands fa-youtube"></i></a></div></div></td><td><span class="lang-inline-en">8 Players</span><span class="lang-inline-de">8 Spieler</span><span class="lang-inline-kr">8인의 연주자</span></td><td><span class="lang-inline-en">2021 | Magdeburg, Germany<br>oNSET Project Ensemble, cond. Roc Fargas Castells</span><span class="lang-inline-de">2021 | Magdeburg, Deutschland<br>oNSET Project Ensemble, Dir. Roc Fargas Castells</span><span class="lang-inline-kr">2021년 | 독일 마그데부르크<br>oNSET 프로젝트 앙상블, 지휘 록 파르가스 카스텔스</span></td></tr>
+                        <tr><td><strong>2021</strong></td><td>Rota Vitae<div class="media-links"><div class="media-row" data-kind="video"><span class="media-label"><span class="lang-inline-en">Video</span><span class="lang-inline-de">Video</span><span class="lang-inline-kr">영상</span></span><a href="https://youtu.be/C_UUg2x4_rU?si=qk71qBnRiXNuCKpj" target="_blank" rel="noopener" title="YouTube"><i class="fa-brands fa-youtube"></i></a></div></div></td><td><span class="lang-inline-en">Sheng Solo</span><span class="lang-inline-de">Sheng Solo</span><span class="lang-inline-kr">생황 독주</span></td><td><span class="lang-inline-en">2021 | Weimar, Germany<br>Wu Wei</span><span class="lang-inline-de">2021 | Weimar, Deutschland<br>Wu Wei</span><span class="lang-inline-kr">2021년 | 독일 바이마르<br>우웨이</span></td></tr>
+                        <tr><td><strong>2018</strong></td><td>Haydn<div class="media-links"><div class="media-row" data-kind="video"><span class="media-label"><span class="lang-inline-en">Video</span><span class="lang-inline-de">Video</span><span class="lang-inline-kr">영상</span></span><a href="https://youtu.be/brk32KjkOy4?si=sMGnhEf1EQ64ALKM" target="_blank" rel="noopener" title="YouTube"><i class="fa-brands fa-youtube"></i></a></div></div></td><td><span class="lang-inline-en">String Quartet</span><span class="lang-inline-de">Streichquartett</span><span class="lang-inline-kr">현악 사중주</span></td><td><span class="lang-inline-en">Feb. 2nd, 2019 | Montréal, Canada<br>Molinari Quartet</span><span class="lang-inline-de">2. Feb. 2019 | Montréal, Kanada<br>Molinari Quartett</span><span class="lang-inline-kr">2019년 2월 2일 | 캐나다 몬트리올<br>몰리나리 콰르텟</span></td></tr>
                     </tbody>
                 </table>
             </div>
@@ -501,9 +521,10 @@
     <input type="text" id="add-title" placeholder="작품명 (모든 언어 공통)" style="flex:1;">
 </div>
 <div class="admin-form-row">
-    <input type="text" id="add-spotify" placeholder="Spotify URL">
-    <input type="text" id="add-youtube" placeholder="YouTube URL">
-    <input type="text" id="add-soundcloud" placeholder="SoundCloud URL">
+    <input type="text" id="add-youtube" placeholder="Video URL (YouTube)">
+    <input type="text" id="add-spotify" placeholder="Audio URL (Spotify)">
+    <input type="text" id="add-soundcloud" placeholder="Audio URL (SoundCloud)">
+    <input type="text" id="add-youtube-audio" placeholder="Audio URL (YouTube 음원)">
 </div>
             <div class="admin-multi-lang">
                 <div>
@@ -539,7 +560,7 @@
 
     <script>
         window.onload = () => { 
-            if(localStorage.getItem('worksSaved')) document.getElementById('works-body').innerHTML = localStorage.getItem('worksSaved');
+            if(localStorage.getItem('worksSaved2')) document.getElementById('works-body').innerHTML = localStorage.getItem('worksSaved2');
             if(localStorage.getItem('eventSaved')) document.getElementById('event-body').innerHTML = localStorage.getItem('eventSaved');
             if(localStorage.getItem('introTextSaved')) document.getElementById('home-intro-text').innerHTML = localStorage.getItem('introTextSaved');
             if(localStorage.getItem('bioTextSaved')) document.querySelector('.bio-content').innerHTML = localStorage.getItem('bioTextSaved');
@@ -591,17 +612,16 @@
         function toggleAdminEditable(isEdit) {
             const elements = document.querySelectorAll('#home-intro-text h2, #home-intro-text p, .bio-content p, #works-body td, #event-body td');
             elements.forEach(el => {
-                // 미디어(링크) 셀은 텍스트 직접 입력이 아닌 클릭으로 팝업을 띄우게 함
-                if (el.tagName.toLowerCase() === 'td' && el.cellIndex === 4) {
-                    el.removeAttribute('contenteditable');
-                    return; 
-                }
-                
                 if (isEdit) {
                     el.setAttribute('contenteditable', 'true');
                 } else {
                     el.removeAttribute('contenteditable');
                 }
+            });
+            // Video/Audio 링크 영역은 글자 편집 대상에서 제외 (링크는 클릭 → 팝업으로 수정)
+            document.querySelectorAll('#works-body .media-links').forEach(el => {
+                if (isEdit) el.setAttribute('contenteditable', 'false');
+                else el.removeAttribute('contenteditable');
             });
         }
 
@@ -620,29 +640,88 @@
             refreshAdminButtons();
         }
 
-        // 💡 핵심 기능: 미디어 링크 즉시 수정 로직
+        // ───────── Video / Audio 링크 헬퍼 ─────────
+        const MEDIA_LABELS = {
+            video: { en: 'Video', de: 'Video', kr: '영상' },
+            audio: { en: 'Audio', de: 'Audio', kr: '오디오' }
+        };
+
+        function mediaPlatform(url) {
+            const u = url.toLowerCase();
+            if (u.includes('spotify')) return { cls: 'fa-brands fa-spotify', name: 'Spotify' };
+            if (u.includes('soundcloud')) return { cls: 'fa-brands fa-soundcloud', name: 'SoundCloud' };
+            if (u.includes('youtube.com') || u.includes('youtu.be')) return { cls: 'fa-brands fa-youtube', name: 'YouTube' };
+            return { cls: 'fa-solid fa-link', name: 'Link' };
+        }
+
+        function mediaLinkHtml(url, note) {
+            const p = mediaPlatform(url);
+            const title = p.name + (note ? ' - ' + note : '');
+            return `<a href="${url}" target="_blank" rel="noopener" title="${title}"><i class="${p.cls}"></i></a>`;
+        }
+
+        function mediaRowHtml(kind, linksHtml) {
+            return `<div class="media-row" data-kind="${kind}"><span class="media-label">${spanObj(MEDIA_LABELS[kind])}</span>${linksHtml}</div>`;
+        }
+
+        function mediaBlockHtml(videoLinks, audioLinks) {
+            let html = '';
+            if (videoLinks.length) html += mediaRowHtml('video', videoLinks.join(''));
+            if (audioLinks.length) html += mediaRowHtml('audio', audioLinks.join(''));
+            return html ? `<div class="media-links">${html}</div>` : '';
+        }
+
+        // 💡 관리자 모드: 링크 아이콘 클릭 → URL 수정 / 삭제
         document.addEventListener('click', function(e) {
-            // 관리자 모드가 아닐 때는 무시
             if (!document.body.classList.contains('admin-mode')) return;
-            
-            // 클릭한 곳이 Works 표의 미디어(5번째) 셀인지 확인
-            const mediaTd = e.target.closest('#works-body td:nth-child(5)');
-            if (mediaTd) {
-                e.preventDefault(); // 링크 열리는 것 방지
-                
-                const existingLink = mediaTd.querySelector('a');
-                const currentUrl = existingLink ? existingLink.href : '';
-                const newUrl = prompt("미디어 링크(URL)를 입력하세요.\n(링크를 삭제하려면 빈칸으로 두고 확인을 누르세요.)", currentUrl);
-                
-                if (newUrl !== null) {
-                    if (newUrl.trim() === '') {
-                        mediaTd.innerHTML = '<span style="color:#ccc;">-</span>';
-                    } else {
-                        mediaTd.innerHTML = `<a href="${newUrl.trim()}" target="_blank">Audio</a>`;
-                    }
-                }
+
+            const a = e.target.closest('#works-body .media-row a');
+            if (!a) return;
+            e.preventDefault();
+
+            const newUrl = prompt("링크(URL)를 수정하세요.\n(삭제하려면 빈칸으로 두고 확인을 누르세요.)", a.getAttribute('href'));
+            if (newUrl === null) return;
+
+            const row = a.closest('.media-row');
+            const box = a.closest('.media-links');
+            if (newUrl.trim() === '') {
+                a.remove();
+                if (!row.querySelector('a')) row.remove();
+                if (!box.querySelector('.media-row')) box.remove();
+            } else {
+                const oldTitle = a.getAttribute('title') || '';
+                const note = oldTitle.includes(' - ') ? oldTitle.split(' - ').slice(1).join(' - ') : '';
+                const tmp = document.createElement('div');
+                tmp.innerHTML = mediaLinkHtml(newUrl.trim(), note);
+                a.replaceWith(tmp.firstChild);
             }
         });
+
+        // 💡 관리자 모드: 작품 제목 아래에 Video / Audio 링크 추가
+        function addMediaLink(btn, kind) {
+            const url = prompt(kind === 'video'
+                ? "Video 링크(URL)를 입력하세요. (예: YouTube)"
+                : "Audio 링크(URL)를 입력하세요. (예: Spotify, SoundCloud, YouTube 음원)");
+            if (!url || !url.trim()) return;
+
+            const td = btn.closest('td');
+            let box = td.querySelector('.media-links');
+            if (!box) {
+                box = document.createElement('div');
+                box.className = 'media-links';
+                if (document.body.classList.contains('admin-mode')) box.setAttribute('contenteditable', 'false');
+                const ctrl = td.querySelector('.admin-ctrl-box');
+                td.insertBefore(box, ctrl);
+            }
+            let row = box.querySelector(`.media-row[data-kind="${kind}"]`);
+            if (!row) {
+                const html = mediaRowHtml(kind, '');
+                if (kind === 'video') box.insertAdjacentHTML('afterbegin', html);
+                else box.insertAdjacentHTML('beforeend', html);
+                row = box.querySelector(`.media-row[data-kind="${kind}"]`);
+            }
+            row.insertAdjacentHTML('beforeend', mediaLinkHtml(url.trim()));
+        }
 
         function previewImageSettings() {
             const size = document.getElementById('home-img-size').value || '1.2';
@@ -667,7 +746,7 @@
         function saveToLocalStorage() {
             previewImageSettings();
 
-            localStorage.setItem('worksSaved', document.getElementById('works-body').innerHTML);
+            localStorage.setItem('worksSaved2', document.getElementById('works-body').innerHTML);
             localStorage.setItem('eventSaved', document.getElementById('event-body').innerHTML);
             localStorage.setItem('introTextSaved', document.getElementById('home-intro-text').innerHTML);
             localStorage.setItem('bioTextSaved', document.querySelector('.bio-content').innerHTML);
@@ -711,6 +790,16 @@
                         `;
                         row.cells[0].appendChild(ctrl);
                     }
+                    if (id === 'works-body' && !row.cells[1].querySelector('.admin-ctrl-box')) {
+                        const mctrl = document.createElement('div');
+                        mctrl.className = 'admin-ctrl-box';
+                        mctrl.setAttribute('contenteditable', 'false');
+                        mctrl.innerHTML = `
+                            <button class="admin-btn" onclick="addMediaLink(this, 'video')">+ Video</button>
+                            <button class="admin-btn" onclick="addMediaLink(this, 'audio')">+ Audio</button>
+                        `;
+                        row.cells[1].appendChild(mctrl);
+                    }
                 });
             });
         }
@@ -750,18 +839,18 @@
     const title = document.getElementById('add-title').value;
     const dates = formatDate(document.getElementById('add-date').value);
     
-    // 💡 수정된 부분: 3가지 링크를 각각 가져옵니다.
-    const spotify = document.getElementById('add-spotify').value.trim();
-    const youtube = document.getElementById('add-youtube').value.trim();
-    const soundcloud = document.getElementById('add-soundcloud').value.trim();
+    // Video / Audio 링크 (제목 아래에 표시됨)
+    const videoUrl = document.getElementById('add-youtube').value.trim();
+    const audioUrls = [
+        document.getElementById('add-spotify').value.trim(),
+        document.getElementById('add-soundcloud').value.trim(),
+        document.getElementById('add-youtube-audio').value.trim()
+    ].filter(Boolean);
 
-    // 💡 수정된 부분: 링크가 있는 것만 아이콘으로 만듭니다.
-    let mediaHtml = "";
-    if (spotify) mediaHtml += `<a href="${spotify}" target="_blank" style="margin-right:10px; color:#1DB954;"><i class="fa-brands fa-spotify"></i></a>`;
-    if (youtube) mediaHtml += `<a href="${youtube}" target="_blank" style="margin-right:10px; color:#FF0000;"><i class="fa-brands fa-youtube"></i></a>`;
-    if (soundcloud) mediaHtml += `<a href="${soundcloud}" target="_blank" style="color:#ff5500;"><i class="fa-brands fa-soundcloud"></i></a>`;
-    
-    if (!mediaHtml) mediaHtml = `<span style="color:#ccc;">-</span>`;
+    const mediaHtml = mediaBlockHtml(
+        videoUrl ? [mediaLinkHtml(videoUrl)] : [],
+        audioUrls.map(u => mediaLinkHtml(u))
+    );
 
     const inst = {
         en: document.getElementById('add-inst-en').value,
@@ -787,10 +876,9 @@
         
         newHtml = `<tr>
             <td><strong>${dates.year || "-"}</strong></td>
-            <td>${title}</td>
+            <td>${title}${mediaHtml}</td>
             <td>${spanObj(inst)}</td>
             <td>${spanObj({en: combinedEn, de: combinedDe, kr: combinedKr})}</td>
-            <td style="font-size: 1.2rem;">${mediaHtml}</td>
         </tr>`;
         document.getElementById('works-body').insertAdjacentHTML('afterbegin', newHtml);
     } else {
@@ -832,11 +920,11 @@
         		const isEdge    = /Edg\//.test(ua);
         		const isFirefox = /Firefox\//.test(ua);
         		if (isChrome || isEdge) {
-            		img.style.filter = 'brightness(0.95)';
+            		img.style.filter = 'brightness(0.85)';
         		} else if (isFirefox) {
-            		img.style.filter = 'brightness(0.95)';
+            		img.style.filter = 'brightness(1.1)';
         		} else {
-            		img.style.filter = 'brightness(0.95)';
+            		img.style.filter = 'brightness(1.4)';
         		}
     		})();
 		</script>
